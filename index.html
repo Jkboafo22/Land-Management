@@ -6,9 +6,7 @@
   <title>Land Parcel Map</title>
   <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/map.css" />
-
   <style>
-    /* Prevent zooming on inputs */
     input, select, button {
       font-size: 16px;
     }
@@ -35,12 +33,10 @@
   <div class="map-overlay" id="legend">
     <h2>📊 Parcel Summary</h2>
     <div id="summaryStats" class="section-box"></div>
-
     <hr>
 
     <details>
       <summary>🎛️ Filters</summary>
-
       <label>Gender</label>
       <select id="genderFilter">
         <option value="All">All</option>

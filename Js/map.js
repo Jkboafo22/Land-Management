@@ -98,20 +98,17 @@ map.on('load', () => {
       .addTo(map);
   });
 
-  // Fit to bounds
   const bounds = new mapboxgl.LngLatBounds();
   lands.features.forEach(f => f.geometry.coordinates[0].forEach(c => bounds.extend(c)));
   map.fitBounds(bounds, { padding: 40 });
 
-  // Toggle parcels
   document.getElementById('toggleParcels').addEventListener('change', function () {
     const vis = this.checked ? 'visible' : 'none';
-    ['lands-layer', 'hover-highlight', 'parcel-labels'].forEach(id =>
+    ['lands-layer', 'hover-highlight', 'parcel-labels', 'parcel-borders'].forEach(id =>
       map.setLayoutProperty(id, 'visibility', vis)
     );
   });
 
-  // Filter logic
   const filters = {
     Gender: 'All',
     Payment_St: 'All',
@@ -142,7 +139,6 @@ map.on('load', () => {
     });
   });
 
-  // Search: Click + Enter support
   document.getElementById('searchBtn').addEventListener('click', runSearch);
   document.getElementById('searchBox').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
@@ -152,7 +148,14 @@ map.on('load', () => {
   });
 
   function runSearch() {
-    const query = document.getElementById('searchBox').value.toLowerCase();
+    const input = document.getElementById('searchBox');
+    const query = input.value.trim().toLowerCase();
+
+    if (!query) {
+      alert('Please enter a name to search.');
+      return;
+    }
+
     const match = lands.features.find(f =>
       f.properties.Full_Name.toLowerCase().includes(query)
     );
@@ -165,12 +168,12 @@ map.on('load', () => {
         .setLngLat(center)
         .setHTML(`<strong>${match.properties.Full_Name}</strong><br/>Plot #: ${match.properties.Plot_Num}`)
         .addTo(map);
+      input.value = ''; // Clear input after successful search
     } else {
       alert('Parcel not found');
     }
   }
 
-  // Summary stats
   const total = lands.features.length;
   const area = lands.features.reduce((sum, f) => sum + (parseFloat(f.properties.Pacel_Size) || 0), 0).toFixed(2);
   document.getElementById('summaryStats').innerHTML = `
@@ -178,7 +181,6 @@ map.on('load', () => {
     <strong>Total Area:</strong> ${area} Acres
   `;
 
-  // Reset filters
   document.getElementById('resetFiltersBtn').addEventListener('click', () => {
     document.getElementById('genderFilter').value = 'All';
     document.getElementById('paymentStatusFilter').value = 'All';
@@ -192,5 +194,78 @@ map.on('load', () => {
 
     map.setFilter('lands-layer', null);
     map.setFilter('parcel-labels', null);
+  });
+});
+
+// === Basemap Style Switch ===
+function reloadLayers() {
+  if (!map.getSource('Parcels')) {
+    map.addSource('Parcels', {
+      type: 'geojson',
+      data: lands
+    });
+  }
+
+  map.addLayer({
+    id: 'lands-layer',
+    type: 'fill',
+    source: 'Parcels',
+    paint: {
+      'fill-color': [
+        'match',
+        ['get', 'Usage'],
+        'Residence', '#EB9360',
+        'Commercial', '#FF0000',
+        '#FF0000'
+      ],
+      'fill-opacity': 0.6
+    }
+  });
+
+  map.addLayer({
+    id: 'parcel-borders',
+    type: 'line',
+    source: 'Parcels',
+    paint: {
+      'line-color': '#000000',
+      'line-width': 1.2
+    }
+  });
+
+  map.addLayer({
+    id: 'hover-highlight',
+    type: 'line',
+    source: 'Parcels',
+    paint: {
+      'line-color': '#ffffff',
+      'line-width': 2
+    },
+    filter: ['==', 'Full_Name', '']
+  });
+
+  map.addLayer({
+    id: 'parcel-labels',
+    type: 'symbol',
+    source: 'Parcels',
+    layout: {
+      'text-field': ['get', 'Plot_Num'],
+      'text-size': 10
+    },
+    paint: {
+      'text-color': '#000',
+      'text-halo-color': '#fff',
+      'text-halo-width': 1
+    }
+  });
+}
+
+document.querySelectorAll('input[name="basemap"]').forEach(input => {
+  input.addEventListener('change', e => {
+    const styleId = e.target.value;
+    const newStyle = `mapbox://styles/mapbox/${styleId}`;
+    map.setStyle(newStyle);
+    map.once('style.load', () => {
+      reloadLayers();
+    });
   });
 });
