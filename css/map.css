@@ -178,4 +178,19 @@ input:checked + .slider:before {
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
+/* ----------- Mobile Responsiveness ----------- */
+@media (max-width: 768px) {
+  .map-overlay {
+    width: 90vw;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 60px;
+    max-height: 70vh;
+    font-size: 14px;
+  }
 
+  #topbar {
+    font-size: 14px;
+    text-align: center;
+  }
+}
