@@ -38,6 +38,16 @@ map.on('load', () => {
   });
 
   map.addLayer({
+    id: 'parcel-borders',
+    type: 'line',
+    source: 'Parcels',
+    paint: {
+      'line-color': '#000000',
+      'line-width': 1.2
+    }
+  });
+
+  map.addLayer({
     id: 'hover-highlight',
     type: 'line',
     source: 'Parcels',

@@ -64,6 +64,12 @@ body {
   border: none;
 }
 
+#searchBox {
+  width: 95% !important;
+  display: inline-block;
+  margin-bottom: 8px;
+}
+
 .map-overlay button {
   width: 100%;
   padding: 6px;
