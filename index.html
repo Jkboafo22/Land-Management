@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Land Parcel Map</title>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/map.css" />
+
+  <style>
+    /* Prevent zooming on inputs */
+    input, select, button {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="topbar">
+    <div class="logo">🏡 Land Management Portal</div>
+  </div>
+
+  <div id="map">
+    <div id="coordinate"></div>
+  </div>
+
+  <div class="map-overlay" id="legend">
+    <h2>📊 Parcel Summary</h2>
+    <div id="summaryStats" class="section-box"></div>
+
+    <hr>
+
+    <details>
+      <summary>🎛️ Filters</summary>
+
+      <label>Gender</label>
+      <select id="genderFilter">
+        <option value="All">All</option>
+        <option value="Male">Male</option>
+        <option value="Female">Female</option>
+      </select>
+
+      <label>Payment Status</label>
+      <select id="paymentStatusFilter">
+        <option value="All">All</option>
+        <option value="Full Payment">Full Payment</option>
+        <option value="Part Payment">Part Payment</option>
+        <option value="Not Paid">Not Paid</option>
+      </select>
+
+      <label>Payment Type</label>
+      <select id="paymentTypeFilter">
+        <option value="All">All</option>
+        <option value="Lease">Lease</option>
+        <option value="Ground rent">Ground rent</option>
+      </select>
+
+      <label>Purpose</label>
+      <select id="purposeFilter">
+        <option value="All">All</option>
+        <option value="Residential">Residential</option>
+        <option value="Commercial">Commercial</option>
+      </select>
+
+      <button id="resetFiltersBtn" class="reset-btn">🔄 Reset Filters</button>
+    </details>
+
+    <hr>
+
+    <details>
+      <summary>🔍 Search</summary>
+      <input type="text" id="searchBox" placeholder="Enter Full Name" />
+      <button id="searchBtn">Find</button>
+    </details>
+
+    <hr>
+
+    <h3>🗺️ Toggle Parcels</h3>
+    <label class="switch">
+      <input type="checkbox" id="toggleParcels" checked>
+      <span class="slider round"></span>
+    </label>
+  </div>
+
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.15.0/mapbox-gl.js"></script>
+  <script src="data/Parcels.js"></script>
+  <script src="js/map.js"></script>
+</body>
+</html>
