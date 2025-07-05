@@ -49,6 +49,7 @@ body {
   max-height: 90vh;
   overflow-y: auto;
   z-index: 2;
+  transition: transform 0.3s ease;
 }
 
 .map-overlay h2, .map-overlay h3 {
@@ -183,10 +184,19 @@ input:checked + .slider:before {
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
-/* Mobile Styles */
+/* === Mobile Styles === */
 @media (max-width: 768px) {
+  .map-overlay {
+    width: 90vw;
+    left: 0;
+    transform: translateX(0);
+    top: 60px;
+    max-height: 70vh;
+    font-size: 14px;
+  }
+
   .map-overlay.collapsed {
-    display: none;
+    transform: translateX(-100%);
   }
 
   .mobile-stub {
@@ -197,35 +207,13 @@ input:checked + .slider:before {
     display: block;
   }
 
-  .map-overlay {
-    width: 90vw;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 60px;
-    max-height: 70vh;
-    font-size: 14px;
-  }
-
   #topbar {
     font-size: 14px;
     text-align: center;
   }
 }
 
-/* Default hidden */
-.mobile-toggle {
-  display: none;
-  margin-bottom: 10px;
-  background-color: #444;
-  color: #eee;
-  border: none;
-  padding: 6px 10px;
-  width: 100%;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-/* Stub tab */
+/* === Always Visible Stub === */
 .mobile-stub {
   display: none;
   position: absolute;
@@ -241,6 +229,20 @@ input:checked + .slider:before {
   cursor: pointer;
 }
 
+/* Close button inside overlay */
+.mobile-toggle {
+  display: none;
+  margin-bottom: 10px;
+  background-color: #444;
+  color: #eee;
+  border: none;
+  padding: 6px 10px;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Basemap switcher */
 #basemapSwitcher {
   position: absolute;
   top: 60px;
@@ -269,11 +271,9 @@ input:checked + .slider:before {
   margin-bottom: 5px;
 }
 
-
-/* Target only the zoom controls inside the control container */
-/* Override the default top-right positioning of the entire control container */
+/* Vertically center zoom controls */
 .mapboxgl-ctrl-top-right {
-  top: 50% !important;        /* Move vertically to middle */
-  right: 0px !important;     /* Distance from right edge */
-  transform: translateY(-50%) !important; /* Center the control itself */
+  top: 50% !important;
+  right: 0px !important;
+  transform: translateY(-50%) !important;
 }
