@@ -85,18 +85,22 @@ map.on('load', () => {
   });
 
   map.on('click', 'lands-layer', (e) => {
-    const props = e.features[0].properties;
-    const html = `
-      <strong>${props.Full_Name}</strong><br/>
-      Plot #: ${props.Plot_Num}<br/>
-      Usage: ${props.Usage}<br/>
-      Payment: ${props.Payment_St}
-    `;
-    new mapboxgl.Popup()
-      .setLngLat(e.lngLat)
-      .setHTML(html)
-      .addTo(map);
-  });
+  const props = e.features[0].properties;
+  const area = parseFloat(props.Pacel_Size).toFixed(3);  // 3 decimal places
+
+  const html = `
+    <strong>${props.Full_Name}</strong><br/>
+    Plot #: ${props.Plot_Num}<br/>
+    Block: ${props.Blocks}<br/>
+    Area: ${area} Acres<br/>
+    Usage: ${props.Usage}<br/>
+    Payment: ${props.Payment_St}
+  `;
+  new mapboxgl.Popup()
+    .setLngLat(e.lngLat)
+    .setHTML(html)
+    .addTo(map);
+});
 
   const bounds = new mapboxgl.LngLatBounds();
   lands.features.forEach(f => f.geometry.coordinates[0].forEach(c => bounds.extend(c)));
