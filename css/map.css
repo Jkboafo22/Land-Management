@@ -268,3 +268,12 @@ input:checked + .slider:before {
   display: block;
   margin-bottom: 5px;
 }
+
+
+/* Target only the zoom controls inside the control container */
+/* Override the default top-right positioning of the entire control container */
+.mapboxgl-ctrl-top-right {
+  top: 50% !important;        /* Move vertically to middle */
+  right: 0px !important;     /* Distance from right edge */
+  transform: translateY(-50%) !important; /* Center the control itself */
+}
