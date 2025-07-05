@@ -184,6 +184,7 @@ input:checked + .slider:before {
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
 }
 
+/* Mobile Styles */
 @media (max-width: 768px) {
   .map-overlay {
     width: 90vw;
@@ -198,6 +199,29 @@ input:checked + .slider:before {
     font-size: 14px;
     text-align: center;
   }
+
+  .mobile-toggle {
+    display: block;
+  }
+
+  .map-overlay.collapsed {
+    display: none;
+  }
+}
+
+/* Default hidden toggle on desktop */
+.mobile-toggle {
+  display: none;
+  position: absolute;
+  top: 60px;
+  left: 10px;
+  z-index: 3;
+  padding: 8px 14px;
+  font-size: 16px;
+  background-color: #1e1e1e;
+  color: #90ee90;
+  border: 1px solid #444;
+  border-radius: 6px;
 }
 
 #basemapSwitcher {
