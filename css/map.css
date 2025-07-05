@@ -48,7 +48,7 @@ body {
   width: 240px;
   max-height: 90vh;
   overflow-y: auto;
-  z-index: 1;
+  z-index: 2;
 }
 
 .map-overlay h2, .map-overlay h3 {
@@ -174,7 +174,6 @@ input:checked + .slider:before {
   background-color: #666;
 }
 
-/* Popup clarity fix */
 .mapboxgl-popup-content {
   background-color: #1e1e1e;
   color: #fff;
@@ -186,6 +185,18 @@ input:checked + .slider:before {
 
 /* Mobile Styles */
 @media (max-width: 768px) {
+  .map-overlay.collapsed {
+    display: none;
+  }
+
+  .mobile-stub {
+    display: block;
+  }
+
+  .mobile-toggle {
+    display: block;
+  }
+
   .map-overlay {
     width: 90vw;
     left: 50%;
@@ -199,29 +210,35 @@ input:checked + .slider:before {
     font-size: 14px;
     text-align: center;
   }
-
-  .mobile-toggle {
-    display: block;
-  }
-
-  .map-overlay.collapsed {
-    display: none;
-  }
 }
 
-/* Default hidden toggle on desktop */
+/* Default hidden */
 .mobile-toggle {
+  display: none;
+  margin-bottom: 10px;
+  background-color: #444;
+  color: #eee;
+  border: none;
+  padding: 6px 10px;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Stub tab */
+.mobile-stub {
   display: none;
   position: absolute;
   top: 60px;
   left: 10px;
   z-index: 3;
-  padding: 8px 14px;
-  font-size: 16px;
   background-color: #1e1e1e;
   color: #90ee90;
-  border: 1px solid #444;
+  padding: 8px 12px;
+  font-size: 16px;
   border-radius: 6px;
+  border: 1px solid #444;
+  cursor: pointer;
 }
 
 #basemapSwitcher {
@@ -250,10 +267,4 @@ input:checked + .slider:before {
 #basemapSwitcher label {
   display: block;
   margin-bottom: 5px;
-}
-
-.mapboxgl-ctrl-top-right {
-  top: 50% !important;
-  right: 0px !important;
-  transform: translateY(-50%) !important;
 }

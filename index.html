@@ -18,7 +18,8 @@
     <div class="logo">🏡 Land Management Portal</div>
   </div>
 
-  <button id="overlayToggleBtn" class="mobile-toggle">☰ Menu</button>
+  <!-- Collapsed stub button -->
+  <div id="overlayStub" class="mobile-stub">☰ Menu</div>
 
   <div id="basemapSwitcher">
     <details>
@@ -32,7 +33,10 @@
     <div id="coordinate"></div>
   </div>
 
+  <!-- Full sidebar overlay -->
   <div class="map-overlay collapsed" id="legend">
+    <button id="overlayToggleBtn" class="mobile-toggle">✖ Close</button>
+
     <h2>📊 Parcel Summary</h2>
     <div id="summaryStats" class="section-box"></div>
     <hr>

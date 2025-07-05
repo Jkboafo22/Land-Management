@@ -199,13 +199,23 @@ map.on('load', () => {
     map.setFilter('parcel-labels', null);
   });
 
-  // ✅ Mobile toggle for overlay visibility
-  document.getElementById('overlayToggleBtn').addEventListener('click', () => {
-    document.getElementById('legend').classList.toggle('collapsed');
+  // ✅ Overlay folding logic for mobile
+  const overlay = document.getElementById('legend');
+  const stub = document.getElementById('overlayStub');
+  const closeBtn = document.getElementById('overlayToggleBtn');
+
+  stub.addEventListener('click', () => {
+    overlay.classList.remove('collapsed');
+    stub.style.display = 'none';
+  });
+
+  closeBtn.addEventListener('click', () => {
+    overlay.classList.add('collapsed');
+    stub.style.display = 'block';
   });
 });
 
-// === Basemap Style Switch ===
+// === Basemap switcher ===
 function reloadLayers() {
   if (!map.getSource('Parcels')) {
     map.addSource('Parcels', {
