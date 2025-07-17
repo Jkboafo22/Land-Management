@@ -199,19 +199,12 @@ map.on('load', () => {
     map.setFilter('parcel-labels', null);
   });
 
-  // ✅ Overlay folding logic for mobile
+  // === Mobile overlay toggle ===
   const overlay = document.getElementById('legend');
-  const stub = document.getElementById('overlayStub');
-  const closeBtn = document.getElementById('overlayToggleBtn');
+  const toggleBtn = document.getElementById('overlayToggleBtn');
 
-  stub.addEventListener('click', () => {
-    overlay.classList.remove('collapsed');
-    stub.style.display = 'none';
-  });
-
-  closeBtn.addEventListener('click', () => {
-    overlay.classList.add('collapsed');
-    stub.style.display = 'block';
+  toggleBtn.addEventListener('click', () => {
+    overlay.classList.toggle('collapsed');
   });
 });
 

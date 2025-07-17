@@ -189,22 +189,29 @@ input:checked + .slider:before {
   .map-overlay {
     width: 90vw;
     left: 0;
-    transform: translateX(0);
     top: 60px;
     max-height: 70vh;
     font-size: 14px;
-  }
-
-  .map-overlay.collapsed {
     transform: translateX(-100%);
   }
 
-  .mobile-stub {
-    display: block;
+  .map-overlay:not(.collapsed) {
+    transform: translateX(0);
   }
 
   .mobile-toggle {
     display: block;
+    position: absolute;
+    top: 60px;
+    left: 10px;
+    z-index: 3;
+    background-color: #444;
+    color: #eee;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
   }
 
   #topbar {
@@ -213,33 +220,15 @@ input:checked + .slider:before {
   }
 }
 
-/* === Always Visible Stub === */
-.mobile-stub {
-  display: none;
-  position: absolute;
-  top: 60px;
-  left: 10px;
-  z-index: 3;
-  background-color: #1e1e1e;
-  color: #90ee90;
-  padding: 8px 12px;
-  font-size: 16px;
-  border-radius: 6px;
-  border: 1px solid #444;
-  cursor: pointer;
-}
+/* Hide toggle button on desktop */
+@media (min-width: 769px) {
+  .mobile-toggle {
+    display: none;
+  }
 
-/* Close button inside overlay */
-.mobile-toggle {
-  display: none;
-  margin-bottom: 10px;
-  background-color: #444;
-  color: #eee;
-  border: none;
-  padding: 6px 10px;
-  width: 100%;
-  border-radius: 4px;
-  cursor: pointer;
+  .map-overlay {
+    transform: translateX(0);
+  }
 }
 
 /* Basemap switcher */
