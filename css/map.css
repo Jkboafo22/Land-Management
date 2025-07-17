@@ -205,8 +205,8 @@ input:checked + .slider:before {
     top: 60px;
     left: 10px;
     z-index: 3;
-    background-color: #444;
-    color: #eee;
+    background: rgba(30, 30, 30, 0.95); /* same as basemapSwitcher */
+    color: #90ee90;       
     padding: 6px 12px;
     border: none;
     border-radius: 6px;
@@ -242,7 +242,7 @@ input:checked + .slider:before {
   font-size: 13px;
   padding: 12px;
   border-radius: 10px;
-  width: 180px;
+  width: 130px;
 }
 
 #basemapSwitcher details {
